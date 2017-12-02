@@ -10,11 +10,10 @@ function encode (address) {
   var ret = '0x'
   for (var i = 0; i < 20; ++i) {
     var byte = checksum[i]
-    var y = i * 2
-    var hex = address.slice(y, y + 2)
-
-    ret += (byte >> 4) > 0x08 ? hex[0].toUpperCase() : hex[0]
-    ret += (byte & 0x0f) > 0x08 ? hex[1].toUpperCase() : hex[1]
+    var ha = address.charAt(i * 2)
+    var hb = address.charAt(i * 2 + 1)
+    ret += (byte & 0xf0) > 0x80 ? ha.toUpperCase() : ha
+    ret += (byte & 0x0f) > 0x08 ? hb.toUpperCase() : hb
   }
 
   return ret
