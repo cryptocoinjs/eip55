@@ -3,7 +3,7 @@
 [![build status](https://secure.travis-ci.org/dcousens/eip55.png)](http://travis-ci.org/dcousens/eip55)
 [![Version](http://img.shields.io/npm/v/eip55.svg)](https://www.npmjs.org/package/eip55)
 
-A [EIP55](https://github.com/ethereum/EIPs/blob/f3a591f6718035ba358d6a479cadabe313f6ed36/EIPS/eip-55.md) compatible address encoding library.
+An [EIP55](https://github.com/ethereum/EIPs/blob/f3a591f6718035ba358d6a479cadabe313f6ed36/EIPS/eip-55.md) compatible address encoding library.
 
 
 ## Example
