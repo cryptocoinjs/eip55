@@ -12,8 +12,8 @@ function encode (address) {
     var byte = checksum[i]
     var ha = address.charAt(i * 2)
     var hb = address.charAt(i * 2 + 1)
-    ret += (byte & 0xf0) > 0x80 ? ha.toUpperCase() : ha
-    ret += (byte & 0x0f) > 0x08 ? hb.toUpperCase() : hb
+    ret += (byte & 0xf0) >= 0x80 ? ha.toUpperCase() : ha
+    ret += (byte & 0x0f) >= 0x08 ? hb.toUpperCase() : hb
   }
 
   return ret
