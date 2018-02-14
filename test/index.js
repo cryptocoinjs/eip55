@@ -47,7 +47,6 @@ tape('verifies each address', function (t) {
 
   for (var i = 0; i < 1000; ++i) {
     var address = '0x' + crypto.randomBytes(20).toString('hex')
-
     t.same(referenceImpl(address), eip55.encode(address))
   }
 

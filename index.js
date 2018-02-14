@@ -1,8 +1,8 @@
 var createKeccakHash = require('keccak')
 
 function encode (address) {
-  if (address.length !== 42) throw new TypeError('Bad address')
-  address = address.slice(2).toLowerCase()
+  if (address.length !== 42 && address.length !== 40) { throw new TypeError('Bad address') }
+  address = address.length === 42 ? address.slice(2).toLowerCase() : address
   var checksum = createKeccakHash('keccak256')
     .update(address)
     .digest()
