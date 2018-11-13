@@ -22,4 +22,4 @@ eip55.verify('0xaca128edbd274f2aba534d67dd55ebf67767b9a5')
 ```
 
 
-## License [ISC](LICENSE)
+## License [MIT](LICENSE)
