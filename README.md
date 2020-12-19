@@ -19,6 +19,18 @@ eip55.verify('0xAcA128edBD274F2aBa534d67dD55Ebf67767B9A5')
 
 eip55.verify('0xaca128edbd274f2aba534d67dd55ebf67767b9a5')
 // => false
+
+// The second argument of verify allows for single case addresses
+// In this case it will only verify the leading 0x and length
+// therefore the above example returns true instead of false
+
+// lower case
+eip55.verify('0xaca128edbd274f2aba534d67dd55ebf67767b9a5', true)
+// => true
+
+// upper case
+eip55.verify('0xACA128EDBD274F2ABA534D67DD55EBF67767B9A5', true)
+// => true
 ```
 
 
