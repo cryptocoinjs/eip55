@@ -1,6 +1,6 @@
 {
   "name": "eip55",
-  "version": "1.0.3",
+  "version": "2.0.0",
   "description": "A EIP55 compatible address encoding library",
   "main": "index.js",
   "types": "index.d.ts",
@@ -11,10 +11,17 @@
     "unit": "tape test/*.js"
   },
   "author": "Daniel Cousens",
+  "contributors": [
+    "Jonathan Underwood <junderwood@bitcoinbank.co.jp>"
+  ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/dcousens/eip55.git"
+    "url": "https://github.com/cryptocoinjs/eip55.git"
   },
+  "files": [
+    "index.js",
+    "index.d.ts"
+  ],
   "keywords": [
     "EIP55",
     "ethereum",
@@ -23,7 +30,7 @@
     "encode",
     "verify"
   ],
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "keccak": "^1.3.0"
   },
