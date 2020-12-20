@@ -54,3 +54,40 @@ tape('verifies each address', function (t) {
   t.ok(fail < 3) // ~0.03% rate
   t.end()
 })
+
+tape('verifies edge cases', function (t) {
+  // encode edge cases
+  // non-string should throw
+  t.throws(function () { eip55.encode(-34.23) }, 'Bad address')
+  // no-leading-0x should not throw
+  t.doesNotThrow(function () { eip55.encode('82c025c453c9ad2824a9b3710763d90d8f454760') })
+  // not 40 hex chars should throw
+  t.throws(function () { eip55.encode('82c025c453c9ad2824a9b3710763d90d8f4547') }, 'Bad address')
+  // not 40 hex chars should throw even with 0x
+  t.throws(function () { eip55.encode('0x82c025c453c9ad2824a9b3710763d90d8f4547') }, 'Bad address')
+  // non-hex character (z) should throw
+  t.throws(function () { eip55.encode('z2c025c453c9ad2824a9b3710763d90d8f454760') }, 'Bad address')
+  // non-hex character (z) should throw even with 0x
+  t.throws(function () { eip55.encode('0xz2c025c453c9ad2824a9b3710763d90d8f454760') }, 'Bad address')
+  // 42 z characters should throw
+  t.throws(function () { eip55.encode('zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz') }, 'Bad address')
+
+  // verify edge cases
+  // verify returns false when no 0x is prepended
+  t.notOk(eip55.verify('82C025c453C9aD2824A9b3710763D90D8F454760'))
+  // verify returns true if allowOneCase is true and address is one case (lower)
+  t.ok(eip55.verify('0x82c025c453c9ad2824a9b3710763d90d8f454760', true))
+  // verify returns true if allowOneCase is true and address is one case (upper)
+  t.ok(eip55.verify('0x82C025C453C9AD2824A9B3710763D90D8F454760', true))
+  // verify should never throw (incorrect type)
+  t.doesNotThrow(function () {
+    // all of these should not throw and return false instead
+    t.notOk(eip55.verify(-34.23))
+    t.notOk(eip55.verify({}))
+    t.notOk(eip55.verify('0x82c025c453c9ad2824a9b3710763d90d8f4547'))
+    t.notOk(eip55.verify('0xz2c025c453c9ad2824a9b3710763d90d8f454760'))
+    t.notOk(eip55.verify('zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz'))
+    t.notOk(eip55.verify('0xzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz'))
+  })
+  t.end()
+})
