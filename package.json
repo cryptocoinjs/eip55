@@ -1,6 +1,6 @@
 {
   "name": "eip55",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "A EIP55 compatible address encoding library",
   "main": "index.js",
   "types": "index.d.ts",
