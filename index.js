@@ -1,12 +1,16 @@
 var createKeccakHash = require('keccak')
 
-function encodeInternal (address, parsed) {
+function encodeInternal (address, parsed, chainId) {
+  checkChainId(chainId)
   parsed = parsed === undefined ? getHex(address) : parsed
   if (parsed === null) throw new TypeError('Bad address')
 
   var addressHex = parsed[1].toLowerCase()
+  var forHash = chainId !== undefined
+    ? chainId.toString(10) + '0x' + addressHex
+    : addressHex
   var checksum = createKeccakHash('keccak256')
-    .update(addressHex)
+    .update(forHash)
     .digest()
 
   var ret = '0x'
@@ -21,18 +25,31 @@ function encodeInternal (address, parsed) {
   return ret
 }
 
-function encode (address) {
-  return encodeInternal(address)
+function encode (address, chainId) {
+  return encodeInternal(address, undefined, chainId)
 }
 
-function verify (address, allowOneCase) {
+function verify (address, allowOneCase, chainId) {
+  checkChainId(chainId)
   var parsed = getHex(address)
   if (parsed !== null) {
     if (address.indexOf('0x') !== 0) return false
     if (allowOneCase && isOneCase(parsed[1])) return true
-    return encodeInternal(address, parsed) === address
+    return encodeInternal(address, parsed, chainId) === address
   }
   return false
+}
+
+function checkChainId (n) {
+  if (n !== undefined && !isPositiveInteger(n)) {
+    throw new TypeError('Bad chainId')
+  }
+}
+
+function isPositiveInteger (n) {
+  return (typeof n === 'number' || n instanceof Number) &&
+    n > 0 &&
+    n + 0 === Math.floor(n)
 }
 
 function isOneCase (s) {

@@ -31,6 +31,20 @@ eip55.verify('0xaca128edbd274f2aba534d67dd55ebf67767b9a5', true)
 // upper case
 eip55.verify('0xACA128EDBD274F2ABA534D67DD55EBF67767B9A5', true)
 // => true
+
+// EIP-1191 chainId support has been added
+// pass the optional chainId to get the casing for that network
+
+// Encode for RSK Mainnet (chainId 30) (notice the difference from above)
+eip55.encode('0xfb6916095ca1df60bb79ce92ce3ea74c37c5d359', 30)
+// => 0xFb6916095cA1Df60bb79ce92cE3EA74c37c5d359
+
+eip55.verify('0xFb6916095cA1Df60bb79ce92cE3EA74c37c5d359')
+// => false (we need to pass the chainId)
+
+// Note: the second argument is allowOneCase (default: false)
+eip55.verify('0xFb6916095cA1Df60bb79ce92cE3EA74c37c5d359', false, 30)
+// => true
 ```
 
 

@@ -89,5 +89,23 @@ tape('verifies edge cases', function (t) {
     t.notOk(eip55.verify('zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz'))
     t.notOk(eip55.verify('0xzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz'))
   })
+
+  // EIP-1191 tests (using test vector with most [a-f] characters)
+  var flatAddress = '0xdbf03b407c01e7cd3cbea99509d93f8dddc8c6fb'
+  var chainId30Addr = '0xDBF03B407c01E7CD3cBea99509D93F8Dddc8C6FB'
+  var chainId31Addr = '0xdbF03B407C01E7cd3cbEa99509D93f8dDDc8C6fB'
+  t.same(chainId30Addr, eip55.encode(flatAddress, 30))
+  t.same(chainId31Addr, eip55.encode(flatAddress, 31))
+  t.throws(function () { eip55.encode(flatAddress, {}) }, 'Bad chainId')
+  t.throws(function () { eip55.encode(flatAddress, 30.4) }, 'Bad chainId')
+  t.throws(function () { eip55.encode(flatAddress, 0) }, 'Bad chainId')
+  t.throws(function () { eip55.encode(flatAddress, -30) }, 'Bad chainId')
+  t.ok(eip55.verify(chainId30Addr, false, 30))
+  t.ok(eip55.verify(chainId31Addr, false, 31))
+  t.throws(function () { eip55.verify(chainId30Addr, false, {}) }, 'Bad chainId')
+  t.throws(function () { eip55.verify(chainId30Addr, false, 30.4) }, 'Bad chainId')
+  t.throws(function () { eip55.verify(chainId30Addr, false, 0) }, 'Bad chainId')
+  t.throws(function () { eip55.verify(chainId30Addr, false, -30) }, 'Bad chainId')
+
   t.end()
 })
