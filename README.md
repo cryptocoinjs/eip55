@@ -14,7 +14,7 @@ let eip55 = require('eip55')
 eip55.encode('0xfb6916095ca1df60bb79ce92ce3ea74c37c5d359')
 // => 0xfB6916095ca1df60bB79Ce92cE3Ea74c37c5d359
 
-eip55.verify('0xAcA128edBD274F2aBa534d67dD55Ebf67767B9A5')
+eip55.verify('0xAcA128edBD274F2aBa534d67DD55Ebf67767B9A5')
 // => true
 
 eip55.verify('0xaca128edbd274f2aba534d67dd55ebf67767b9a5')
