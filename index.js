@@ -1,4 +1,4 @@
-var createKeccakHash = require('keccak')
+var keccak256 = require('@noble/hashes/sha3').keccak_256
 
 function encodeInternal (address, parsed, chainId) {
   checkChainId(chainId)
@@ -9,9 +9,7 @@ function encodeInternal (address, parsed, chainId) {
   var forHash = chainId !== undefined
     ? chainId.toString(10) + '0x' + addressHex
     : addressHex
-  var checksum = createKeccakHash('keccak256')
-    .update(forHash)
-    .digest()
+  var checksum = keccak256(forHash)
 
   var ret = '0x'
   for (var i = 0; i < 20; ++i) {
